@@ -16,19 +16,16 @@
 <table class="table table-hover">
 	<thead>
 		<tr>
-			<th><?php echo __d('user', 'Name'); ?></th>
-			<th><?php echo __d('user', 'e-Mail'); ?></th>
-			<th class="hidden-xs"><?php echo __d('user', 'Roles'); ?></th>
+			<th><?php echo __d('user', 'Role name'); ?></th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach ($users as $user): ?>
+		<?php foreach ($roles as $role): ?>
 			<tr>
-				<td><?php echo $user->name; ?> <small>(<?php echo $user->username; ?>)</small></td>
-				<td><?php echo $user->email; ?></td>
-				<td class="hidden-xs">
-					<?php echo implode(', ', $user->role_names); ?>
+				<td>
+					<?php echo $role->name; ?><br />
+					<small>(<?php echo $role->slug; ?>)</small>
 				</td>
 				<td>
 					<div class="btn-group">
@@ -37,7 +34,7 @@
 								'plugin' => 'User',
 								'controller' => 'manage',
 								'action' => 'edit',
-								$user->id,
+								$role->id,
 							], [
 								'title' => __d('user', 'Set as default'),
 								'class' => 'btn btn-default btn-sm glyphicon glyphicon-pencil',
@@ -48,11 +45,11 @@
 								'plugin' => 'User',
 								'controller' => 'manage',
 								'action' => 'delete',
-								$user->id,
+								$role->id,
 							], [
 								'title' => __d('user', 'Delete'),
 								'class' => 'btn btn-default btn-sm glyphicon glyphicon-trash',
-								'confirm' => __d('user', 'You are about to delete: "{0}". Are you sure ?', $user->name),
+								'confirm' => __d('user', 'You are about to delete: "{0}". Are you sure ?', $role->name),
 							]);
 						?>
 					</div>
@@ -61,9 +58,3 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
-
-<ul class="pagination">
-	<?php echo $this->Paginator->prev(); ?>
-	<?php echo $this->Paginator->numbers(); ?>
-	<?php echo $this->Paginator->next(); ?>
-</ul>
